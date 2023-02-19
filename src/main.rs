@@ -5,11 +5,12 @@ async fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     let iters = args.get(1).and_then(|s| s.parse().ok()).unwrap_or(10);
     let url = "https://hello.deno.dev";
-     let client = Client::builder()
+    let client = Client::builder()
         .use_rustls_tls()
         .redirect(reqwest::redirect::Policy::none())
-        .build().unwrap();
-   
+        .build()
+        .unwrap();
+
     let mut times = 10;
     let mut sum = 0;
     while times > 0 {
@@ -25,9 +26,7 @@ async fn iter(client: &Client, iters: usize, base: &str) -> usize {
     for i in 0..iters {
         let url = format!("{}?cachebust={}", base, i);
 
-        let future = client
-            .get(&url)
-            .send();
+        let future = client.get(&url).send();
 
         futures.spawn_local(future);
     }
