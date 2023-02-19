@@ -1,0 +1,14 @@
+[package]
+name = "slow_rustls_fetch"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.11.11", default-features = false, features = ["rustls-tls", "stream", "gzip", "brotli", "socks"] }
+tokio = { version = "=1.25.0", features = ["full"] }
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = true
+
